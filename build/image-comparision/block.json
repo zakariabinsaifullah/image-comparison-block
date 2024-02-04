@@ -1,0 +1,69 @@
+{
+  "apiVersion": 2,
+  "name": "icgb/image-compare",
+  "version": "0.1.0",
+  "title": "Photo Comparison",
+  "category": "media",
+  "description": "Showcase Images Comparision with different styles",
+  "supports": {
+    "html": false,
+    "anchor": true
+  },
+  "keywords": [
+    "image",
+    "compare",
+    "compare images",
+    "image compare",
+    "image comparison"
+  ],
+  "example": {
+    "attributes": {
+      "beforeImageUrl": "https://i.postimg.cc/v8WNPMGL/home-before.jpg",
+      "afterImageUrl": "https://i.postimg.cc/m2B6JqDx/home-after.jpg"
+    }
+  },
+  "attributes": {
+    "beforeImageUrl": {
+      "type": "string"
+    },
+    "beforeImageAlt": {
+      "type": "string"
+    },
+    "beforeImageId": {
+      "type": "number"
+    },
+    "afterImageUrl": {
+      "type": "string"
+    },
+    "afterImageAlt": {
+      "type": "string"
+    },
+    "afterImageId": {
+      "type": "number"
+    },
+    "verticalMode": {
+      "type": "boolean",
+      "default": false
+    },
+    "hover": {
+      "type": "boolean",
+      "default": false
+    },
+    "showLabel": {
+      "type": "boolean",
+      "default": false
+    },
+    "leftImageLabel": {
+      "type": "string",
+      "default": "Before"
+    },
+    "rightImageLabel": {
+      "type": "string",
+      "default": "After"
+    }
+  },
+  "textdomain": "image-comparision-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

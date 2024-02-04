@@ -1,0 +1,50 @@
+/*
+* Style Works for Editor Only
+*/
+.icgb__image-options {
+    .icgb__before-image-wrapper,
+    .icgb__after-image-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        .title {
+            font-weight: 500;
+            font-size: 14px;
+        }
+    }
+    .icgb__after-image-wrapper {
+        border-top: 1px solid #e0e0e0;
+        margin-top: 15px;
+    }
+}
+.icgb-compare-block {
+    .icgb-empty-images {
+        font-size: 18px;
+        text-align: center;
+        font-weight: 500;
+    }
+}
+
+.wp-block-icgb-image-compare {
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px dashed #ccc;
+}
+
+// Beaf Slider Pro
+a.icgb-beaf-pro {
+    display: block;
+    text-align: center;
+    padding: 15px;
+    background: #4f2b85;
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+    margin: 0;
+    transition: all 0.3s ease;
+    &:hover {
+        background: #5f3b95;
+        text-decoration: underline;
+    }
+}

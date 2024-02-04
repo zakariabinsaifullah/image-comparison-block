@@ -1,0 +1,63 @@
+{
+    "name": "gutenberg-boilerplate",
+    "version": "2.0.0",
+    "description": "A boilerplate for start developing custom Gutenberg Blocks",
+    "author": "Zakaria Binsaifullah",
+    "license": "GPL-2.0-or-later",
+    "main": "build/blocks/index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/zakariabinsaifullah/gutenberg-boilerplate.git"
+    },
+    "keywords": [
+        "wordpress",
+        "gutenberg",
+        "blocks",
+        "gutenberg blocks development",
+        "wordpress gutenberg blocks development",
+        "wordpress gutenberg blocks",
+        "wordpress gutenberg blocks development boilerplate"
+    ],
+    "prettier": {
+        "arrowParens": "avoid",
+        "bracketSpacing": true,
+        "htmlWhitespaceSensitivity": "css",
+        "insertPragma": false,
+        "jsxBracketSameLine": false,
+        "jsxSingleQuote": false,
+        "printWidth": 140,
+        "proseWrap": "preserve",
+        "quoteProps": "as-needed",
+        "requirePragma": false,
+        "semi": true,
+        "singleQuote": true,
+        "tabWidth": 4,
+        "trailingComma": "none",
+        "useTabs": false,
+        "rangeStart": 0
+    },
+    "stylelint": {
+        "extends": "@wordpress/stylelint-config/scss"
+    },
+    "scripts": {
+        "build": "wp-scripts build",
+        "format": "wp-scripts format",
+        "lint:css": "wp-scripts lint-style",
+        "lint:js": "wp-scripts lint-js",
+        "packages-update": "wp-scripts packages-update",
+        "plugin-zip": "wp-scripts plugin-zip",
+        "start": "wp-scripts start"
+    },
+    "devDependencies": {
+        "@wordpress/eslint-plugin": "^13.2.0",
+        "@wordpress/prettier-config": "^2.1.0",
+        "@wordpress/scripts": "^24.6.0",
+        "@wordpress/stylelint-config": "^21.1.0",
+        "eslint-config-prettier": "^8.3.0"
+    },
+    "dependencies": {
+        "classnames": "^2.3.2",
+        "glob": "^10.3.3",
+        "react-compare-image": "^3.4.0"
+    }
+}

@@ -1,0 +1,99 @@
+.dci-notice {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0px;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.dci-notice-wrapper {
+    position: relative;
+    background: #fff;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    padding: 32px;
+    border: 1.5px solid #ddd;
+    border-radius: 5px;
+}
+
+.dci-header {
+    text-align: justify;
+    margin-bottom: 38px;
+}
+
+.dci-title {
+    text-align: center;
+}
+
+.dci-actions {
+    border: 1px solid #ddd;
+    padding: 16px 10px;
+    border-left: unset;
+    border-right: unset;
+}
+
+.dci-actions form {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px;
+    padding: 0px;
+}
+
+.dci-actions button {
+    padding: 6px 16px !important;
+}
+
+.dci-permission {
+    padding: 32px;
+    text-align: center;
+}
+
+.dci-permission p {
+    margin: 0px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #2271b1;
+}
+
+.dci-permission-item {
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+}
+
+.dci-data-list ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.dci-data-list li {
+    margin-bottom: 22px;
+}
+
+.dci-data-list li:last-child {
+    margin-bottom: 0px;
+}
+
+.dci-data-list .dci-desc h3 {
+    margin: 0px;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+.dci-data-list .dci-desc p {
+    margin: 0px;
+    font-size: 1em;
+}
+
+.dci-data-list .dashicons {
+    font-size: 32px;
+    height: 32px;
+    width: 32px;
+}
