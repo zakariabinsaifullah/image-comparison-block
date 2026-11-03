@@ -86,3 +86,6 @@ yarn-error.log*
 /examples/**/package-lock.json
 settings.dat
 yarn.lock
+
+# CI / local release builds
+/dist

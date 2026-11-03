@@ -1,0 +1,125 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "icgb/image-compare",
+	"version": "1.7.0",
+	"title": "Image Compare",
+	"category": "media",
+	"description": "Show a before and after comparison of two images with a draggable slider.",
+	"keywords": [ "before after", "comparison", "slider", "image" ],
+	"textdomain": "image-compare-block",
+	"attributes": {
+		"beforeImageUrl": {
+			"type": "string"
+		},
+		"beforeImageAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"beforeImageId": {
+			"type": "number"
+		},
+		"afterImageUrl": {
+			"type": "string"
+		},
+		"afterImageAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"afterImageId": {
+			"type": "number"
+		},
+		"verticalMode": {
+			"type": "boolean",
+			"default": false
+		},
+		"hover": {
+			"type": "boolean",
+			"default": false
+		},
+		"startingPoint": {
+			"type": "number",
+			"default": 50
+		},
+		"showLabel": {
+			"type": "boolean",
+			"default": false
+		},
+		"labelsOnHover": {
+			"type": "boolean",
+			"default": false
+		},
+		"leftImageLabel": {
+			"type": "string",
+			"default": "Before"
+		},
+		"rightImageLabel": {
+			"type": "string",
+			"default": "After"
+		},
+		"handleColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"handleStyle": {
+			"type": "string",
+			"enum": [ "circle", "square", "line" ],
+			"default": "circle"
+		},
+		"handleBackground": {
+			"type": "string"
+		},
+		"handleSize": {
+			"type": "number",
+			"default": 44
+		},
+		"lineWidth": {
+			"type": "number",
+			"default": 2
+		},
+		"labelPosition": {
+			"type": "string",
+			"enum": [ "start", "center", "end" ]
+		},
+		"labelColor": {
+			"type": "string"
+		},
+		"labelBackground": {
+			"type": "string"
+		},
+		"labelFontSize": {
+			"type": "string"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"__experimentalDefaultControls": {
+				"margin": false
+			}
+		},
+		"dimensions": {
+			"aspectRatio": true,
+			"__experimentalDefaultControls": {
+				"aspectRatio": true
+			}
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true,
+			"__experimentalDefaultControls": {
+				"radius": true
+			}
+		},
+		"shadow": true
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}

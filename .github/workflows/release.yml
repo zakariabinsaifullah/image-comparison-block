@@ -1,0 +1,182 @@
+name: Release
+
+# Push a tag that matches the plugin version to release, e.g.:
+#   git tag v1.7.0 && git push origin v1.7.0
+#
+# 1. Builds the plugin and verifies every version string matches the tag.
+# 2. Creates a GitHub release with the zip and the changelog from readme.txt.
+# 3. Deploys the same files to the WordPress.org SVN repository.
+#
+# Required repository secrets for step 3: SVN_USERNAME and SVN_PASSWORD
+# (your WordPress.org username and SVN password).
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+env:
+  SLUG: image-compare-block
+
+jobs:
+  build:
+    name: Build and verify
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read version from tag
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Verify version strings match the tag
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          fail=0
+          check() {
+            if grep -Eq "$2" "$1"; then
+              echo "✓ $1 ($3)"
+            else
+              echo "::error file=$1::$3 does not match $VERSION"
+              fail=1
+            fi
+          }
+          v="${VERSION//./\\.}"
+          check plugin.php "^ \* Version: +${v}$" "Version header"
+          check plugin.php "define\( 'ICGB_VERSION', '${v}' \)" "ICGB_VERSION"
+          check readme.txt "^Stable tag: ${v}$" "Stable tag"
+          check readme.txt "^= ${v} =$" "Changelog entry"
+          check src/image-compare/block.json "\"version\": \"${v}\"" "block.json version"
+          check package.json "\"version\": \"${v}\"" "package.json version"
+          exit $fail
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: |
+          npm run lint:js
+          npm run lint:css
+
+      - name: Build
+        run: npm run build
+
+      - name: Create plugin zip
+        run: |
+          npm run plugin-zip
+          unzip -q "$SLUG.zip" -d dist
+
+      - name: Run Plugin Check
+        uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: dist/${{ env.SLUG }}
+
+      - name: Extract release notes from readme.txt
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          awk -v ver="= $VERSION =" '
+            $0 == ver { found = 1; next }
+            found && /^= / { exit }
+            found && /^== / { exit }
+            found { print }
+          ' readme.txt > release-notes.md
+          if [ ! -s release-notes.md ]; then
+            echo "::error::No changelog entry for $VERSION in readme.txt"
+            exit 1
+          fi
+          cat release-notes.md
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: release
+          path: |
+            ${{ env.SLUG }}.zip
+            release-notes.md
+          retention-days: 7
+
+  github-release:
+    name: GitHub release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download build
+        uses: actions/download-artifact@v4
+        with:
+          name: release
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ needs.build.outputs.version }}
+          body_path: release-notes.md
+          files: ${{ env.SLUG }}.zip
+          fail_on_unmatched_files: true
+
+  wordpress-org:
+    name: Deploy to WordPress.org
+    needs: [build, github-release]
+    runs-on: ubuntu-latest
+    environment:
+      name: wordpress.org
+      url: https://wordpress.org/plugins/image-compare-block/
+    env:
+      SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+      SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+    steps:
+      - name: Check SVN credentials
+        id: creds
+        run: |
+          if [ -z "$SVN_USERNAME" ] || [ -z "$SVN_PASSWORD" ]; then
+            echo "::warning::SVN_USERNAME / SVN_PASSWORD secrets are not set. Skipping the WordPress.org deploy."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout (for .wordpress-org assets)
+        if: steps.creds.outputs.ready == 'true'
+        uses: actions/checkout@v4
+
+      - name: Download build
+        if: steps.creds.outputs.ready == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: release
+          path: release
+
+      - name: Unpack the exact files from the GitHub release
+        if: steps.creds.outputs.ready == 'true'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq subversion
+          unzip -q "release/$SLUG.zip" -d release/dist
+
+      - name: Deploy to WordPress.org SVN
+        if: steps.creds.outputs.ready == 'true'
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SLUG: ${{ env.SLUG }}
+          VERSION: ${{ needs.build.outputs.version }}
+          BUILD_DIR: release/dist/${{ env.SLUG }}
+          ASSETS_DIR: .wordpress-org

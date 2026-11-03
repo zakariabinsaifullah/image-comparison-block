@@ -1,0 +1,259 @@
+/**
+ * Front end + editor styles for the Image Compare block.
+ */
+.wp-block-icgb-image-compare {
+	--icgb-position: 50%;
+	--icgb-handle-color: #fff;
+	--icgb-handle-bg: rgba(0, 0, 0, 0.25);
+	--icgb-knob-size: 44px;
+	--icgb-line-width: 2px;
+	--icgb-label-color: #fff;
+	--icgb-label-bg: rgba(0, 0, 0, 0.55);
+	--icgb-label-size: 0.85rem;
+	--icgb-label-offset: 1rem;
+	position: relative;
+	box-sizing: border-box;
+
+	.icgb-compare__container {
+		position: relative;
+		overflow: hidden;
+		border-radius: inherit;
+		line-height: 0;
+		cursor: ew-resize;
+		touch-action: pan-y;
+		user-select: none;
+		-webkit-user-select: none;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	&.is-vertical .icgb-compare__container {
+		cursor: ns-resize;
+		touch-action: pan-x;
+	}
+
+	.icgb-compare__image {
+		display: block;
+		width: 100%;
+		max-width: none;
+		height: auto;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		border-radius: 0;
+		box-shadow: none;
+		pointer-events: none;
+		-webkit-user-drag: none;
+	}
+
+	// Aspect ratio support: the wrapper sets the size and both images crop to it.
+	&.has-aspect-ratio {
+
+		.icgb-compare__container {
+			position: absolute;
+			inset: 0;
+		}
+
+		.icgb-compare__image {
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+
+	.icgb-compare__before {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		clip-path: inset(0 calc(100% - var(--icgb-position)) 0 0);
+
+		.icgb-compare__image {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+
+	&.is-vertical .icgb-compare__before {
+		clip-path: inset(0 0 calc(100% - var(--icgb-position)) 0);
+	}
+
+	/* Handle */
+	.icgb-compare__handle {
+		position: absolute;
+		z-index: 3;
+		top: 0;
+		bottom: 0;
+		left: var(--icgb-position);
+		width: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		outline: none;
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: calc(var(--icgb-line-width) / -2);
+			width: var(--icgb-line-width);
+			background: var(--icgb-handle-color);
+			box-shadow: 0 0 6px rgba(0, 0, 0, 0.35);
+		}
+	}
+
+	&.is-vertical .icgb-compare__handle {
+		top: var(--icgb-position);
+		right: 0;
+		bottom: auto;
+		left: 0;
+		width: auto;
+		height: 0;
+
+		&::before {
+			top: calc(var(--icgb-line-width) / -2);
+			right: 0;
+			bottom: auto;
+			left: 0;
+			width: auto;
+			height: var(--icgb-line-width);
+		}
+	}
+
+	.icgb-compare__knob {
+		position: relative;
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+		width: var(--icgb-knob-size);
+		height: var(--icgb-knob-size);
+		border: 2px solid var(--icgb-handle-color);
+		border-radius: 50%;
+		background: var(--icgb-handle-bg);
+		backdrop-filter: blur(4px);
+		color: var(--icgb-handle-color);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+		transition: transform 0.15s ease;
+	}
+
+	&.is-handle-square .icgb-compare__knob {
+		border-radius: 6px;
+	}
+
+	&.is-handle-line .icgb-compare__knob {
+		border-color: transparent;
+		background: none;
+		backdrop-filter: none;
+		box-shadow: none;
+	}
+
+	&.is-handle-line .icgb-compare__arrows {
+		filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
+	}
+
+	.icgb-compare__arrows {
+		width: 50%;
+		height: 50%;
+		fill: none;
+		stroke: currentcolor;
+		stroke-width: 2.5;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	&.is-vertical .icgb-compare__arrows {
+		transform: rotate(90deg);
+	}
+
+	.icgb-compare__handle:focus-visible .icgb-compare__knob {
+		outline: 2px solid var(--icgb-handle-color);
+		outline-offset: 3px;
+	}
+
+	&.is-dragging .icgb-compare__knob {
+		transform: scale(1.1);
+	}
+
+	/* Labels */
+	.icgb-compare__label {
+		position: absolute;
+		z-index: 2;
+		padding: 0.4em 0.75em;
+		border-radius: 3px;
+		background: var(--icgb-label-bg);
+		color: var(--icgb-label-color);
+		font-size: var(--icgb-label-size);
+		line-height: 1.4;
+		white-space: nowrap;
+		pointer-events: none;
+		transition: opacity 0.2s ease;
+	}
+
+	// Horizontal: before on the left, after on the right; position is vertical.
+	&.is-horizontal {
+
+		.icgb-compare__label.is-before {
+			left: var(--icgb-label-offset);
+		}
+
+		.icgb-compare__label.is-after {
+			right: var(--icgb-label-offset);
+		}
+
+		&.is-label-start .icgb-compare__label {
+			top: var(--icgb-label-offset);
+		}
+
+		&.is-label-center .icgb-compare__label {
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		&.is-label-end .icgb-compare__label {
+			bottom: var(--icgb-label-offset);
+		}
+	}
+
+	// Vertical: before on top, after at the bottom; position is horizontal.
+	&.is-vertical {
+
+		.icgb-compare__label.is-before {
+			top: var(--icgb-label-offset);
+		}
+
+		.icgb-compare__label.is-after {
+			bottom: var(--icgb-label-offset);
+		}
+
+		&.is-label-start .icgb-compare__label {
+			left: var(--icgb-label-offset);
+		}
+
+		&.is-label-center .icgb-compare__label {
+			left: 50%;
+			transform: translateX(-50%);
+		}
+
+		&.is-label-end .icgb-compare__label {
+			right: var(--icgb-label-offset);
+		}
+	}
+
+	&.has-labels-on-hover .icgb-compare__label {
+		opacity: 0;
+	}
+
+	&.has-labels-on-hover:hover .icgb-compare__label,
+	&.has-labels-on-hover:focus-within .icgb-compare__label {
+		opacity: 1;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+
+		.icgb-compare__knob,
+		.icgb-compare__label {
+			transition: none;
+		}
+	}
+}

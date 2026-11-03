@@ -1,14 +1,29 @@
 {
-  "name": "image-compare-block-cgb-guten-block",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "start": "cgb-scripts start",
-    "build": "cgb-scripts build",
-    "eject": "cgb-scripts eject"
-  },
-  "dependencies": {
-    "cgb-scripts": "1.23.1",
-    "react-compare-image": "^3.1.0"
-  }
+	"name": "image-compare-block",
+	"version": "1.7.0",
+	"description": "Before/after image comparison block for the WordPress block editor.",
+	"author": "Zakaria Binsaifullah",
+	"license": "GPL-2.0-or-later",
+	"private": true,
+	"files": [
+		"admin",
+		"build",
+		"includes",
+		"src",
+		"package.json",
+		"plugin.php",
+		"readme.txt"
+	],
+	"scripts": {
+		"build": "wp-scripts build --webpack-copy-php",
+		"start": "wp-scripts start --webpack-copy-php",
+		"format": "wp-scripts format",
+		"lint:js": "wp-scripts lint-js ./src",
+		"lint:css": "wp-scripts lint-style \"./src/**/*.scss\"",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"brand": "node tools/brand/render.js"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^37.0.0"
+	}
 }

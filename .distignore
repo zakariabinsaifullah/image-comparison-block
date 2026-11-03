@@ -1,0 +1,12 @@
+# Files excluded from the WordPress.org release.
+/.git
+/.github
+/.wordpress-org
+/node_modules
+/tools
+.distignore
+.gitignore
+.DS_Store
+eslint.config.cjs
+package-lock.json
+*.zip

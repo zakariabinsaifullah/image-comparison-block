@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Lint, build and Plugin Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint JavaScript
+        run: npm run lint:js
+
+      - name: Lint styles
+        run: npm run lint:css
+
+      - name: Build
+        run: npm run build
+
+      - name: Check the committed build is up to date
+        run: |
+          if ! git diff --quiet -- build; then
+            echo "::error::build/ is out of date. Run 'npm run build' and commit the result."
+            git --no-pager diff --stat -- build
+            exit 1
+          fi
+
+      - name: Create plugin zip
+        run: |
+          npm run plugin-zip
+          unzip -q image-compare-block.zip -d dist
+
+      - name: Run Plugin Check
+        uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: dist/image-compare-block
+
+      - name: Upload plugin zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: image-compare-block
+          path: image-compare-block.zip
+          retention-days: 14

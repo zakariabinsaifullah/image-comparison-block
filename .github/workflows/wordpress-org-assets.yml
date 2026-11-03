@@ -1,0 +1,68 @@
+name: WordPress.org assets and readme
+
+# Updates the banner, icon, screenshots and readme.txt on WordPress.org
+# without shipping a new release. Runs when those files change on master.
+#
+# Required repository secrets: SVN_USERNAME and SVN_PASSWORD.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.wordpress-org/**'
+      - 'readme.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordpress-org-assets
+  cancel-in-progress: true
+
+env:
+  SLUG: image-compare-block
+
+jobs:
+  update:
+    name: Update assets and readme
+    runs-on: ubuntu-latest
+    environment:
+      name: wordpress.org
+      url: https://wordpress.org/plugins/image-compare-block/
+    env:
+      SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+      SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check prerequisites
+        id: check
+        run: |
+          if [ -z "$SVN_USERNAME" ] || [ -z "$SVN_PASSWORD" ]; then
+            echo "::warning::SVN_USERNAME / SVN_PASSWORD secrets are not set. Skipping."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Pushing a readme whose Stable tag is not released yet would point
+          # WordPress.org at a missing version, so wait for the Release workflow.
+          sudo apt-get update -qq && sudo apt-get install -y -qq subversion
+          STABLE=$(grep -m1 -E '^Stable tag:' readme.txt | sed -E 's/^Stable tag:[[:space:]]*//' | tr -d '\r')
+          if svn ls "https://plugins.svn.wordpress.org/$SLUG/tags/$STABLE/" > /dev/null 2>&1; then
+            echo "✓ tags/$STABLE exists on WordPress.org"
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::tags/$STABLE is not on WordPress.org yet. The Release workflow will publish the readme and assets with it."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update WordPress.org assets and readme
+        if: steps.check.outputs.ready == 'true'
+        uses: 10up/action-wordpress-plugin-asset-update@stable
+        env:
+          SLUG: ${{ env.SLUG }}
+          ASSETS_DIR: .wordpress-org
+          README_NAME: readme.txt
+          IGNORE_OTHER_FILES: true
