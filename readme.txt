@@ -1,4 +1,4 @@
-=== Image Comparison Block ===
+=== Image Compare Block ===
 Contributors: binsaifullah
 Tags: image compare, before after, image comparison, slider, block
 Requires at least: 6.6
@@ -12,7 +12,7 @@ A lightweight, accessible before/after image comparison block for the WordPress 
 
 == Description ==
 
-**Image Comparison Block** adds an "Image Compare" block to the block editor so you can showcase before and after images with a draggable slider. It is built with native block editor components, has no third-party JavaScript dependencies, and loads its small front-end script only on pages that use the block.
+**Image Compare Block** adds an "Image Compare" block to the block editor so you can showcase before and after images with a draggable slider. It is built with native block editor components, has no third-party JavaScript dependencies, and loads its small front-end script only on pages that use the block.
 
 [See Demos](https://demos.makegutenblock.com/image-compare-block/)
 

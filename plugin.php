@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Image Comparison Block
+ * Plugin Name:       Image Compare Block
  * Plugin URI:        https://wordpress.org/plugins/image-compare-block/
  * Description:       A lightweight, accessible before/after image comparison block for the WordPress block editor.
  * Version:           1.7.0
