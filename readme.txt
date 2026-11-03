@@ -30,7 +30,7 @@ A lightweight, accessible before/after image comparison block for the WordPress 
 * Handle styles: circle, square or line, with custom color, background, size and line width.
 * Label styles: position, text color, background and font size.
 * Border, rounded corners, shadow and aspect ratio (crops both images evenly).
-* Wide and full width alignment, and margin controls.
+* Wide and full width alignment, margin controls and HTML anchors.
 * Responsive images with `srcset` for images from the media library.
 * Accessible: the handle is keyboard operable (arrow keys, Page Up/Down, Home/End) and announced as a slider to screen readers.
 * Live, interactive preview in the editor.
@@ -84,7 +84,7 @@ No, it is built with native block editor components only.
 * New: Starting position and "show labels on hover" settings.
 * New: Swap images and replace images from the block toolbar.
 * New: Alt text controls for both images.
-* New: Wide/full alignment and margin support.
+* New: Wide/full alignment and margin support. HTML anchors are kept.
 * New: Keyboard and screen reader support for the slider handle.
 * New: Interactive preview in the editor.
 * Improved: Touch support that does not block page scrolling.
@@ -93,7 +93,21 @@ No, it is built with native block editor components only.
 * Removed: Redirect to the plugin page on activation.
 * Fixed: Removed the deprecated `wp-editor` dependency.
 * Fixed: Stray "undefined" CSS class in saved block markup.
-* Existing blocks are migrated automatically.
+* Blocks created with 1.0.0 and 1.5.0 – 1.6.2 are migrated automatically, keeping their HTML anchors and custom CSS classes.
+
+= 1.6.2 =
+* Compatibility with the latest WordPress version.
+
+= 1.6.1 =
+* Admin page updated.
+* Popup notice issue fixed.
+
+= 1.6.0 =
+* Labels position issue fixed.
+* Admin page updated.
+
+= 1.5.0 =
+* Compatibility with the latest WordPress version.
 
 = 1.0.0 =
 * Initial release.

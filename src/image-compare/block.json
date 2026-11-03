@@ -57,6 +57,9 @@
 			"type": "string",
 			"default": "After"
 		},
+		"anchor": {
+			"type": "string"
+		},
 		"handleColor": {
 			"type": "string",
 			"default": "#ffffff"
@@ -93,6 +96,7 @@
 	},
 	"supports": {
 		"html": false,
+		"anchor": true,
 		"align": [ "wide", "full" ],
 		"spacing": {
 			"margin": true,

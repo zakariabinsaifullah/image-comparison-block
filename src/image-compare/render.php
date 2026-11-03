@@ -4,7 +4,8 @@
  *
  * @package ImageCompareBlock
  *
- * @var array $attributes Block attributes.
+ * @var array  $attributes Block attributes.
+ * @var string $content    Saved block markup (empty for blocks saved by 1.7.0+).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -76,14 +77,27 @@ foreach ( $icgb_vars as $icgb_property => $icgb_value ) {
 	}
 }
 
-$icgb_wrapper = get_block_wrapper_attributes(
-	array(
-		'class'      => implode( ' ', $icgb_classes ),
-		'style'      => '--icgb-position:' . $icgb_start . '%',
-		'data-hover' => empty( $attributes['hover'] ) ? 'false' : 'true',
-		'data-start' => (string) $icgb_start,
-	)
+$icgb_wrapper_attributes = array(
+	'class'      => implode( ' ', $icgb_classes ),
+	'style'      => '--icgb-position:' . $icgb_start . '%',
+	'data-hover' => empty( $attributes['hover'] ) ? 'false' : 'true',
+	'data-start' => (string) $icgb_start,
 );
+
+// HTML anchor. Older WordPress versions do not output it for server-rendered
+// blocks. Posts saved by 1.5.0–1.6.2 keep it in the markup until re-saved.
+$icgb_anchor = isset( $attributes['anchor'] ) && is_string( $attributes['anchor'] ) ? $attributes['anchor'] : '';
+if ( '' === $icgb_anchor && ! empty( $content ) ) {
+	$icgb_saved = new WP_HTML_Tag_Processor( $content );
+	if ( $icgb_saved->next_tag() && is_string( $icgb_saved->get_attribute( 'id' ) ) ) {
+		$icgb_anchor = $icgb_saved->get_attribute( 'id' );
+	}
+}
+if ( '' !== $icgb_anchor ) {
+	$icgb_wrapper_attributes['id'] = $icgb_anchor;
+}
+
+$icgb_wrapper = get_block_wrapper_attributes( $icgb_wrapper_attributes );
 
 $icgb_image_html = icgb_image_allowed_html();
 ?>
