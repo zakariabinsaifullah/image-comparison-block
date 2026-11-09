@@ -2,7 +2,7 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "icgb/image-compare",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "title": "Image Compare",
   "category": "media",
   "description": "Show a before and after comparison of two images with a draggable slider.",

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Admin page for the Image Compare Block plugin.
+ * Admin page for the Image Comparison Block plugin.
  */
 class ICGB_Admin_Page {
 
@@ -84,7 +84,7 @@ class ICGB_Admin_Page {
 		<div class="icgb-admin">
 			<div class="icgb-admin__head">
 				<div class="icgb-admin__head-inner">
-					<h1 class="icgb-admin__title"><?php esc_html_e( 'Image Compare Block', 'image-compare-block' ); ?></h1>
+					<h1 class="icgb-admin__title"><?php esc_html_e( 'Image Comparison Block', 'image-compare-block' ); ?></h1>
 					<p class="icgb-admin__subtitle"><?php esc_html_e( 'A block to showcase before and after image comparisons.', 'image-compare-block' ); ?></p>
 					<div class="icgb-admin__buttons">
 						<?php

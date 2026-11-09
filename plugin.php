@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:       Image Compare Block
+ * Plugin Name:       Image Comparison Block – Before After Image Slider
  * Plugin URI:        https://wordpress.org/plugins/image-compare-block/
- * Description:       A lightweight, accessible before/after image comparison block for the WordPress block editor.
- * Version:           1.7.0
+ * Description:       Before and after image comparison slider block for Gutenberg. Lightweight, accessible, responsive and touch friendly.
+ * Version:           1.7.1
  * Requires at least: 6.6
  * Requires PHP:      7.4
  * Author:            Zakaria Binsaifullah
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ICGB_VERSION', '1.7.0' );
+define( 'ICGB_VERSION', '1.7.1' );
 define( 'ICGB_FILE', __FILE__ );
 define( 'ICGB_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ICGB_URL', plugin_dir_url( __FILE__ ) );

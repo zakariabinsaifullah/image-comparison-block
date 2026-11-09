@@ -1,40 +1,68 @@
-=== Image Compare Block ===
+=== Image Comparison Block – Before After Image Slider ===
 Contributors: binsaifullah
-Tags: image compare, before after, image comparison, slider, block
+Tags: before after, image comparison, image compare, comparison slider, photo comparison
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A lightweight, accessible before/after image comparison block for the WordPress block editor.
+Before and after image comparison slider block for Gutenberg. Lightweight, accessible, responsive and touch friendly. No jQuery.
 
 == Description ==
 
-**Image Compare Block** adds an "Image Compare" block to the block editor so you can showcase before and after images with a draggable slider. It is built with native block editor components, has no third-party JavaScript dependencies, and loads its small front-end script only on pages that use the block.
+**Image Comparison Block** is a lightweight **before and after image comparison slider** for the WordPress block editor (Gutenberg). Place two images on top of each other and let visitors drag, click or swipe the handle to reveal the difference.
 
-[See Demos](https://demos.makegutenblock.com/image-compare-block/)
+It is built with native block editor components, has no jQuery or third-party JavaScript libraries, and loads its tiny front-end script only on pages that actually use the block, so it will not slow down the rest of your site.
+
+[See Live Demos](https://demos.makegutenblock.com/image-compare-block/)
 
 [youtube https://www.youtube.com/watch?v=OylHrkczwK4]
 
+### Perfect For
+
+A before/after slider is the clearest way to show a transformation. Use it for:
+
+* **Photographers and retouchers**: original vs. edited photos, color grading, RAW vs. final.
+* **Designers and agencies**: old website vs. redesign, mockup vs. final product.
+* **Real estate and interior design**: home staging, renovation and remodeling results.
+* **Construction, landscaping and cleaning services**: project progress and results.
+* **Beauty, cosmetics, dental and fitness**: treatment and transformation results.
+* **Car detailing and restoration**: before and after the job.
+* **Education and science**: maps, satellite images and changes over time.
+* **Product reviews**: compare screenshots, settings or image quality side by side.
+
 ### Key Features
 
-* Simple, lightweight and fast. No jQuery or external libraries.
-* Built with native block editor components.
-* Horizontal and vertical comparison.
-* Drag, click, or swipe on touch devices to compare.
-* Optional "move on hover" mode.
-* Adjustable starting position.
-* Optional before and after labels, always visible or shown on hover.
-* Handle styles: circle, square or line, with custom color, background, size and line width.
-* Label styles: position, text color, background and font size.
-* Border, rounded corners, shadow and aspect ratio (crops both images evenly).
-* Wide and full width alignment, margin controls and HTML anchors.
-* Responsive images with `srcset` for images from the media library.
-* Accessible: the handle is keyboard operable (arrow keys, Page Up/Down, Home/End) and announced as a slider to screen readers.
-* Live, interactive preview in the editor.
-* Respects the "reduce motion" accessibility setting.
+* **Lightweight and fast**: no jQuery or external libraries. Assets load only where the block is used.
+* **Native Gutenberg block**: built with core block editor components, works with any block theme or classic theme, including the Site Editor (FSE).
+* **Horizontal and vertical** comparison modes.
+* **Drag, click or swipe** to compare. Touch friendly, without blocking page scrolling on mobile.
+* Optional **move on hover** mode.
+* Adjustable **starting position** of the slider.
+* Optional **before and after labels**, always visible or shown on hover.
+* **Handle styles**: circle, square or line, with custom color, background, size and line width.
+* **Label styles**: position, text color, background and font size.
+* **Border, rounded corners, box shadow and aspect ratio** (crops both images evenly).
+* **Wide and full width** alignment, margin controls and HTML anchors.
+* **Responsive images** with `srcset` and `sizes` for images from the Media Library.
+* **Accessible**: keyboard operable handle (arrow keys, Page Up/Down, Home/End), announced as a slider to screen readers, and respects the "reduce motion" setting.
+* **Live, interactive preview** in the editor.
+* **Swap or replace images** from the block toolbar, with alt text controls for SEO.
+* Use **multiple comparison sliders** on the same page.
+* **Translation ready**.
+
+### How to Use
+
+1. Add the **Image Compare** block from the Media category, or type `/image compare` in the editor.
+2. Choose a before image and an after image from the Media Library.
+3. Pick the orientation, starting position, labels and styles from the block sidebar.
+4. Publish. Your before/after slider is live.
+
+### Why Image Comparison Block?
+
+Many image comparison plugins depend on jQuery, page builders or heavy sliders. Image Comparison Block is a single, focused block that does one thing well: a fast, accessible and good-looking before and after image slider that fits right into the block editor.
 
 == Installation ==
 
@@ -45,17 +73,45 @@ A lightweight, accessible before/after image comparison block for the WordPress 
 
 == Frequently Asked Questions ==
 
-= Is it responsive? =
+= How do I add a before and after image slider in WordPress? =
 
-Yes. The block scales with its container and serves responsive images from the media library.
+Install and activate the plugin, open a post or page in the block editor, add the "Image Compare" block and choose your before and after images. That's it.
 
-= Does it work on touch devices? =
+= Does it work with my theme? =
 
-Yes. Swipe across the image to move the slider. Vertical page scrolling still works.
+Yes. It works with block themes and classic themes, and in posts, pages, custom post types, widgets and Site Editor templates wherever the block editor is available.
+
+= Do I need a page builder? =
+
+No. It is a native Gutenberg block. No page builder is required.
+
+= Is it responsive and mobile friendly? =
+
+Yes. The slider scales with its container, serves responsive images from the Media Library, and supports swiping on touch devices while vertical page scrolling still works.
+
+= Can I make a vertical (top/bottom) comparison? =
+
+Yes. Turn on vertical mode in the block settings to compare images from top to bottom.
+
+= Can I add "Before" and "After" labels? =
+
+Yes. Enable labels, change their text, and style their position, colors and font size. Labels can be always visible or shown only on hover.
+
+= Will it slow down my website? =
+
+No. The block has no jQuery or external dependencies, and its small script and styles load only on pages that contain the block.
 
 = Is it accessible? =
 
-Yes. The slider handle can be focused with the keyboard and moved with the arrow keys, Page Up/Down, Home and End. It is exposed to assistive technology as a slider with its current value.
+Yes. The slider handle can be focused with the keyboard and moved with the arrow keys, Page Up/Down, Home and End. It is exposed to assistive technology as a slider with its current value, and you can set alt text for both images.
+
+= Can I use more than one comparison slider on a page? =
+
+Yes. Add as many Image Compare blocks as you like.
+
+= Should both images be the same size? =
+
+For the best result, use two images with the same dimensions and framing. You can also set an aspect ratio on the block to crop both images evenly.
 
 = Will my existing blocks keep working after updating? =
 
@@ -72,6 +128,10 @@ No, it is built with native block editor components only.
 3. The Styles tab: aspect ratio, border, handle style and colors, and label styles.
 
 == Changelog ==
+
+= 1.7.1 =
+* Renamed the plugin to "Image Comparison Block – Before After Image Slider".
+* Improved: Plugin description, features and FAQ.
 
 = 1.7.0 =
 * Rebuilt the block with block.json (API version 3) and @wordpress/scripts.
@@ -113,6 +173,9 @@ No, it is built with native block editor components only.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.7.1 =
+Plugin renamed to Image Comparison Block. No changes to your existing blocks.
 
 = 1.7.0 =
 Major update with a rebuilt, accessible slider and new settings. Existing blocks are migrated automatically. Requires WordPress 6.6 and PHP 7.4.

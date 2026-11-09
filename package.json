@@ -1,6 +1,6 @@
 {
 	"name": "image-compare-block",
-	"version": "1.7.0",
+	"version": "1.7.1",
 	"description": "Before/after image comparison block for the WordPress block editor.",
 	"author": "Zakaria Binsaifullah",
 	"license": "GPL-2.0-or-later",
